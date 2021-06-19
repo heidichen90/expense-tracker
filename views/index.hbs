@@ -5,27 +5,38 @@
     Category
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+    {{#each category}}
+    <a class="dropdown-item" href="#">{{this.name_cn}}</a>
+    {{/each}}
   </div>
 </div>
 
 <!-- Total expense -->
 <span>
   <h6 style="display: inline;">Total:</h6>
-  <h1 style="display: inline;">3140</h1>
+  <h1 style="display: inline;">{{totalAmount}}</h1>
 </span>
 
 <!-- List -->
 <ul class="list-group">
   {{#each records}}
   <li class="list-group-item">
-    <div class="row">
-      <div class="col-auto mr-auto">
-        <h4 style="display: inline; vertical-align: middle;">
-          {{this.name}}
-        </h4>
+    <div class="row d-flex align-items-center">
+      <div class="col-auto mr-auto d-flex align-items-center">
+        <i class="{{this.iconClass}} fa-lg mr-2"></i>
+        <div>
+          <h4> 
+            {{this.name}}
+          </h4>
+          <h6>
+            {{this.date}}
+          </h6>
+        </div>
+      </div>
+      <div class="col-auto">
+        <h1>
+          {{this.amount}}
+        </h1>
       </div>
       <div class="col-auto">
         <a class="btn btn-success" href="">edit</a>
