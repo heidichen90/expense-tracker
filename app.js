@@ -21,7 +21,7 @@ app.use(methodOverride("_method"));
 app.get("/", (req, res) => {
   const recordPromise = Record.find().lean().sort({ _id: "asc" });
   const categoryPromise = Category.find().lean().sort({ _id: "asc" });
-  Promise.all([recordPromise, categoryPromise])
+  return Promise.all([recordPromise, categoryPromise])
     .then((value) => {
       const records = value[0];
       const category = value[1];
@@ -60,6 +60,17 @@ app.delete("/records/:id", (req, res) => {
     });
 });
 
+//edit a record
+app.get("/records/:id/edit", (req, res) => {
+  const id = req.params.id;
+  return Record.findById(id)
+    .then((record) => {
+      res.render("edit", { record });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 // activate and set port 3000
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`);
