@@ -1,1 +1,41 @@
-<h1>expende tracker index page</h1>
+<!-- Dropdown filter -->
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    Category
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+
+<!-- Total expense -->
+<span>
+  <h6 style="display: inline;">Total:</h6>
+  <h1 style="display: inline;">3140</h1>
+</span>
+
+<!-- List -->
+<ul class="list-group">
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col-auto mr-auto">
+        <h4 style="display: inline; vertical-align: middle;">
+          Expense 1
+        </h4>
+      </div>
+      <div class="col-auto">
+        <a class="btn btn-success" href="">edit</a>
+        <form action="" method="POST" style="display: inline;">
+          <button class="btn btn-danger" type="submit">delete</button>
+        </form>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<button type="button" class="btn btn-primary">新增支出</button>
+
+
