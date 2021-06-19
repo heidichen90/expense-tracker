@@ -1,0 +1,29 @@
+{
+ "categorySeeds": [
+    {
+      "name": "bill",
+      "name_cn": "家居物業",
+      "icon_class": "fas fa-home"
+    },
+    {
+      "name": "transportation",
+      "name_cn": "交通出行",
+      "icon_class": "fas fa-shuttle-van"
+    },
+    {
+      "name": "entertainment",
+      "name_cn": "休閒娛樂",
+      "icon_class": "fas fa-grin-beam"
+    },
+    {
+      "name": "food",
+      "name_cn": "餐飲食品",
+      "icon_class": "fas fa-utensils"
+    },
+    {
+      "name": "others",
+      "name_cn": "其他",
+      "icon_class": "fas fa-pen"
+    }
+  ]
+}
