@@ -19,11 +19,12 @@
 
 <!-- List -->
 <ul class="list-group">
+  {{#each records}}
   <li class="list-group-item">
     <div class="row">
       <div class="col-auto mr-auto">
         <h4 style="display: inline; vertical-align: middle;">
-          Expense 1
+          {{this.name}}
         </h4>
       </div>
       <div class="col-auto">
@@ -34,6 +35,7 @@
       </div>
     </div>
   </li>
+  {{/each}}
 </ul>
 
 <button type="button" class="btn btn-primary">新增支出</button>
