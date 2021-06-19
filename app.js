@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("./config/mongoose");
 
 const PORT = 3000;
 
