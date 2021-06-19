@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const exhbs = require("express-handlebars");
+const methodOverride = require("method-override");
 const Record = require("./models/record");
 const Category = require("./models/category");
 require("./config/mongoose");
@@ -10,6 +11,12 @@ const PORT = 3000;
 //set handlebars as a view engine
 app.engine("hbs", exhbs({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", "hbs");
+
+//set bodyparser
+app.use(express.urlencoded({ extended: true }));
+
+//set method-override
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   const recordPromise = Record.find().lean().sort({ _id: "asc" });
@@ -32,6 +39,21 @@ app.get("/", (req, res) => {
       });
 
       res.render("index", { records, category, totalAmount });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//delete a record
+app.delete("/records/:id", (req, res) => {
+  const id = req.params.id;
+  return Record.findById(id)
+    .then((record) => {
+      return record.remove();
+    })
+    .then(() => {
+      res.redirect("/");
     })
     .catch((err) => {
       console.log(err);
