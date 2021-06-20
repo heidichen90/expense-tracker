@@ -19,6 +19,10 @@
       style="display: inline;">$ {{totalAmount}}</h1>
     </span>
 
+    {{#unless records}}
+    <h4 class="text-danger">Add some new records</h4>
+    {{/unless}}
+
     <!-- List -->
     <table class="table table-striped table-borderless container-table">
       <tbody>
