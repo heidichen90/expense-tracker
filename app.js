@@ -41,7 +41,6 @@ app.get("/", (req, res) => {
       // format record object
       records.forEach((e) => {
         e.iconClass = categoryToClass[e.category];
-        e.date = e.date.toDateString();
         totalAmount += e.amount;
       });
 
@@ -70,7 +69,6 @@ app.get("/filter/:category", (req, res) => {
       // format record object
       records.forEach((e) => {
         e.iconClass = categoryToClass[e.category];
-        e.date = e.date.toDateString();
         totalAmount += e.amount;
       });
 
@@ -103,11 +101,44 @@ app.get("/records/:id/edit", (req, res) => {
     .lean()
     .then((record) => {
       //convert it to unit timstamp
-      record.date = record.date.toDateString();
       res.render("edit", { record, category: categoryData.categorySeeds });
     })
     .catch((err) => {
       console.log(err);
+    });
+});
+
+//put to update record
+app.put("/records/:id", (req, res) => {
+  const id = req.params.id;
+  return Record.findById(id)
+    .then((record) => {
+      Object.assign(record, { ...req.body });
+      return record.save();
+    })
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//add new record
+app.get("/records/new", (req, res) => {
+  const today = new Date();
+  res.render("new", { today, category: categoryData.categorySeeds });
+});
+
+app.post("/records", (req, res) => {
+  const restaurants = new Record({ ...req.body });
+  return restaurants
+    .save()
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((error) => {
+      console.log(error);
     });
 });
 // activate and set port 3000
