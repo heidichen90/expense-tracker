@@ -1,0 +1,15 @@
+.container-totalAmount {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+.container-dropdown {
+  width: 60%;
+}
+
+.container-button {
+  width: 60%;
+}

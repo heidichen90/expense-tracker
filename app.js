@@ -24,6 +24,9 @@ app.use(express.urlencoded({ extended: true }));
 //set method-override
 app.use(methodOverride("_method"));
 
+// setting static files
+app.use(express.static("public"));
+
 //home page
 app.get("/", (req, res) => {
   const recordPromise = Record.find().lean().sort({ _id: "asc" });
