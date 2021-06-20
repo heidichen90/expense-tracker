@@ -1,1 +1,99 @@
-<h1> edit: {{record}} </h1>
+<div class="container-fluid py-5">
+    <div class="mr-4 ml-4 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST" action="/records/{{record._id}}?_method=PUT" class="needs-validation" novalidate>
+            <!---name -->
+            <div class="form-group form-row">
+              <label for="name" class="col-md-4 col-form-label">Name*</label>
+              <div class="col-md-8">
+                <input type="text" name="name" id="name" class="form-control" required
+                  value='{{record.name}}'></input>
+                <div class="valid-feedback">
+                  {{record.name}}
+                </div>
+                <div class="invalid-feedback">
+                  this field is required！
+                </div>
+              </div>
+            </div>
+            <!--calendar-->
+            <!-- Form code begins -->
+            <form method="post">
+              <div class="form-group form-row">
+                <!-- Date input -->
+                <label class="control-label col-md-4 col-form-label" for="date">Date*</label>
+                <div class='col-md-8'>
+                  <input type='text' class="form-control" data-provide="datepicker" style='width: 300px;' placeholder="DD/MM/YYY" value='{{record.date}}' required>
+                </div>
+              </div>
+            </form>
+            <!--category-->
+            <div class="form-group form-row">
+              <label for="category" class="col-md-4 col-form-label">
+                Category*
+              </label>
+              <div class="col-md-8">
+                <input list="categories" class="form-control" name="category" id="category" required
+                  value='{{record.category}}' />
+                <datalist id="categories">
+                  <option>中東料理</option>
+                  <option>日本料理</option>
+                  <option>義式餐廳</option>
+                  <option>美式</option>
+                  <option>酒吧</option>
+                  <option>咖啡</option>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  this field is required！
+                </div>
+              </div>
+            </div>
+            <!--Amount-->
+            <div class="form-group form-row">
+              <label for="phone" class="col-md-4 col-form-label">Amount*</label>
+              <div class="col-md-8">
+                <input type="number" name="amount" id="amount" class="form-control" min='0' step= '1' required
+                  value='{{record.amount}}'></input>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  this field is required！
+                </div>
+              </div>
+            </div>
+            <div class='d-flex flex-row justify-content-end'>
+              <button class="btn btn-primary" type="submit" id="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  //date-picker
+  $(document).ready(function () {
+      $('#datepicker').datepicker({
+        format: 'mm-dd-yyyy'
+      });
+    });
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+  
+</script>

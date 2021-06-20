@@ -4,6 +4,7 @@ const exhbs = require("express-handlebars");
 const methodOverride = require("method-override");
 const Record = require("./models/record");
 const Category = require("./models/category");
+const categoryData = require("./mock_data/category.json");
 require("./config/mongoose");
 
 const PORT = 3000;
@@ -94,8 +95,10 @@ app.delete("/records/:id", (req, res) => {
 app.get("/records/:id/edit", (req, res) => {
   const id = req.params.id;
   return Record.findById(id)
+    .lean()
     .then((record) => {
-      res.render("edit", { record });
+      record.date = record.date.toDateString();
+      res.render("edit", { record, category: categoryData });
     })
     .catch((err) => {
       console.log(err);
