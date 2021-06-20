@@ -102,8 +102,8 @@ app.get("/records/:id/edit", (req, res) => {
   return Record.findById(id)
     .lean()
     .then((record) => {
+      //convert it to unit timstamp
       record.date = record.date.toDateString();
-      console.log(categoryData);
       res.render("edit", { record, category: categoryData.categorySeeds });
     })
     .catch((err) => {

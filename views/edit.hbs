@@ -24,7 +24,7 @@
                 <!-- Date input -->
                 <label class="control-label col-md-4 col-form-label" for="date">Date*</label>
                 <div class='col-md-8'>
-                  <input type='text' class="form-control" data-provide="datepicker" style='width: 300px;' placeholder="DD/MM/YYY" value='{{record.date}}' required>
+                  <input type='text' class="form-control" data-provide="datepicker" style='width: 300px;' placeholder="DD/MM/YYY" value='{{moment record.date format="DD/MM/YYYY"}}' required>
                 </div>
               </div>
             </form>
