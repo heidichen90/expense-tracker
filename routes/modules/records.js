@@ -13,8 +13,8 @@ router.delete("/:id", (req, res) => {
     .then(() => {
       res.redirect("/");
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      res.render("error", { error });
     });
 });
 
@@ -28,7 +28,7 @@ router.get("/:id/edit", (req, res) => {
       res.render("edit", { record, category: categoryData.categorySeeds });
     })
     .catch((err) => {
-      console.log(err);
+      res.render("error", { error });
     });
 });
 
@@ -43,8 +43,8 @@ router.put("/:id", (req, res) => {
     .then(() => {
       res.redirect("/");
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      res.render("error", { error });
     });
 });
 
@@ -62,7 +62,7 @@ router.post("/", (req, res) => {
       res.redirect("/");
     })
     .catch((error) => {
-      console.log(error);
+      res.render("error", { error });
     });
 });
 

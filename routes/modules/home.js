@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Record = require("../../models/record");
 const Category = require("../../models/category");
+const {
+  getCategoryClass,
+  getTotalAmount,
+} = require("../../public/javascript/tools");
 
 //home page
 router.get("/", (req, res) => {
@@ -11,22 +15,23 @@ router.get("/", (req, res) => {
     .then((value) => {
       const records = value[0];
       const category = value[1];
-      let totalAmount = 0;
 
       // format categories object for easy lookup
-      const categoryToClass = new Object();
-      category.forEach((e) => (categoryToClass[e.name] = e.icon_class));
+      const categoryToClass = getCategoryClass(category);
 
       // format record object
       records.forEach((e) => {
         e.iconClass = categoryToClass[e.category];
-        totalAmount += e.amount;
       });
+
+      //get totalAmount
+      const totalAmount = getTotalAmount(records);
 
       res.render("index", { records, category, totalAmount });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(">>", error);
+      res.render("error", { error });
     });
 });
 
@@ -39,22 +44,22 @@ router.get("/filter/:category", (req, res) => {
     .then((value) => {
       const records = value[0];
       const category = value[1];
-      let totalAmount = 0;
 
       // format categories object for easy lookup
-      const categoryToClass = new Object();
-      category.forEach((e) => (categoryToClass[e.name] = e.icon_class));
+      const categoryToClass = getCategoryClass(category);
 
       // format record object
       records.forEach((e) => {
         e.iconClass = categoryToClass[e.category];
-        totalAmount += e.amount;
       });
+
+      //get totalAmount
+      const totalAmount = getTotalAmount(records);
 
       res.render("index", { records, category, totalAmount });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      res.render("error", { error });
     });
 });
 
