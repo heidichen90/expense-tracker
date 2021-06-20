@@ -13,6 +13,12 @@
       "amount": 20
     },
     {
+      "name":"expense-transport",
+      "category": "transport",
+      "date":"2021-06-19",
+      "amount": 20
+    },
+    {
       "name":"expense-3",
       "category": "entertainment",
       "date":"2021-06-19",
