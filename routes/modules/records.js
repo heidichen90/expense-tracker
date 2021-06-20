@@ -14,6 +14,7 @@ router.delete("/:id", (req, res) => {
       res.redirect("/");
     })
     .catch((error) => {
+      console.log(error);
       res.render("error", { error });
     });
 });
@@ -27,7 +28,8 @@ router.get("/:id/edit", (req, res) => {
       //convert it to unit timstamp
       res.render("edit", { record, category: categoryData.categorySeeds });
     })
-    .catch((err) => {
+    .catch((error) => {
+      console.log(error);
       res.render("error", { error });
     });
 });
@@ -44,6 +46,7 @@ router.put("/:id", (req, res) => {
       res.redirect("/");
     })
     .catch((error) => {
+      console.log(error);
       res.render("error", { error });
     });
 });
@@ -62,6 +65,7 @@ router.post("/", (req, res) => {
       res.redirect("/");
     })
     .catch((error) => {
+      console.log(error);
       res.render("error", { error });
     });
 });

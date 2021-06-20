@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
       res.render("index", { records, category, totalAmount });
     })
     .catch((error) => {
-      console.log(">>", error);
+      console.log(error);
       res.render("error", { error });
     });
 });
@@ -59,6 +59,7 @@ router.get("/filter/:category", (req, res) => {
       res.render("index", { records, category, totalAmount });
     })
     .catch((error) => {
+      console.log(error);
       res.render("error", { error });
     });
 });
