@@ -22,7 +22,7 @@
                 <!-- Date input -->
                 <label class="control-label col-md-4 col-form-label" for="date">Date*</label>
                 <div class='col-md-8'>
-                  <input type='date' class="form-control" name="date"value="{{moment record.date format="YYYY-MM-DD"}}">
+                  <input type='date' class="form-control" id='date' name="date"value="{{moment record.date format="YYYY-MM-DD"}}" style="width: auto;">
                   <div class="invalid-feedback">
                     this field is required！
                   </div>
@@ -56,7 +56,7 @@
               </div>
             </div>
             <div class='row'>
-            <label for="phone" class="col-md-4 col-form-label"></label>
+            <label for="amount" class="col-md-4 col-form-label"></label>
             <div class='col-md-8'>
               <button class="btn btn-primary" type="submit" id="submit" style="width: 100%;">送出</button>
             </div>

@@ -21,7 +21,7 @@
           <!-- Date input -->
           <label class="control-label col-md-4 col-form-label" for="date">Date*</label>
           <div class='col-md-8'>
-            <input type='date' class="form-control" name="date" value="{{moment today format="YYYY-MM-DD"}}">
+            <input type='date' class="form-control" name="date" id='date' value="{{moment today format="YYYY-MM-DD"}}" style="width: auto;">
             <div class="invalid-feedback">
               this field is required！
             </div>
@@ -46,7 +46,7 @@
         </div>
         <!--Amount-->
         <div class="form-group form-row">
-          <label for="phone" class="col-md-4 col-form-label">Amount*</label>
+          <label for="amount" class="col-md-4 col-form-label">Amount*</label>
           <div class="col-md-8">
             <input type="number" name="amount" id="amount" class="form-control" min='0' step='1' required></input>
             <div class="invalid-feedback">

@@ -4,9 +4,7 @@ const exhbs = require("express-handlebars");
 const handlebarsHelpers = require("handlebars-helpers");
 const helpers = handlebarsHelpers();
 const methodOverride = require("method-override");
-const Record = require("./models/record");
-const Category = require("./models/category");
-const categoryData = require("./mock_data/category.json");
+const routes = require("./routes");
 require("./config/mongoose");
 
 const PORT = 3000;
@@ -27,123 +25,9 @@ app.use(methodOverride("_method"));
 // setting static files
 app.use(express.static("public"));
 
-//home page
-app.get("/", (req, res) => {
-  const recordPromise = Record.find().lean().sort({ _id: "asc" });
-  const categoryPromise = Category.find().lean().sort({ _id: "asc" });
-  return Promise.all([recordPromise, categoryPromise])
-    .then((value) => {
-      const records = value[0];
-      const category = value[1];
-      let totalAmount = 0;
+//set router
+app.use(routes);
 
-      // format categories object for easy lookup
-      const categoryToClass = new Object();
-      category.forEach((e) => (categoryToClass[e.name] = e.icon_class));
-
-      // format record object
-      records.forEach((e) => {
-        e.iconClass = categoryToClass[e.category];
-        totalAmount += e.amount;
-      });
-
-      res.render("index", { records, category, totalAmount });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-//filter a category
-app.get("/filter/:category", (req, res) => {
-  const categoryParam = req.params.category;
-  const recordPromise = Record.find().lean().find({ category: categoryParam });
-  const categoryPromise = Category.find().lean().sort({ _id: "asc" });
-  return Promise.all([recordPromise, categoryPromise])
-    .then((value) => {
-      const records = value[0];
-      const category = value[1];
-      let totalAmount = 0;
-
-      // format categories object for easy lookup
-      const categoryToClass = new Object();
-      category.forEach((e) => (categoryToClass[e.name] = e.icon_class));
-
-      // format record object
-      records.forEach((e) => {
-        e.iconClass = categoryToClass[e.category];
-        totalAmount += e.amount;
-      });
-
-      res.render("index", { records, category, totalAmount });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-//delete a record
-app.delete("/records/:id", (req, res) => {
-  const id = req.params.id;
-  return Record.findById(id)
-    .then((record) => {
-      return record.remove();
-    })
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-//edit a record
-app.get("/records/:id/edit", (req, res) => {
-  const id = req.params.id;
-  return Record.findById(id)
-    .lean()
-    .then((record) => {
-      //convert it to unit timstamp
-      res.render("edit", { record, category: categoryData.categorySeeds });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-//put to update record
-app.put("/records/:id", (req, res) => {
-  const id = req.params.id;
-  return Record.findById(id)
-    .then((record) => {
-      Object.assign(record, { ...req.body });
-      return record.save();
-    })
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-//add new record
-app.get("/records/new", (req, res) => {
-  const today = new Date();
-  res.render("new", { today, category: categoryData.categorySeeds });
-});
-
-app.post("/records", (req, res) => {
-  const restaurants = new Record({ ...req.body });
-  return restaurants
-    .save()
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 // activate and set port 3000
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`);
