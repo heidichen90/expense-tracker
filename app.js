@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const exhbs = require("express-handlebars");
+const handlebarsHelpers = require("handlebars-helpers");
+const helpers = handlebarsHelpers();
 const methodOverride = require("method-override");
 const Record = require("./models/record");
 const Category = require("./models/category");
@@ -10,7 +12,10 @@ require("./config/mongoose");
 const PORT = 3000;
 
 //set handlebars as a view engine
-app.engine("hbs", exhbs({ defaultLayout: "main", extname: ".hbs" }));
+app.engine(
+  "hbs",
+  exhbs({ defaultLayout: "main", extname: ".hbs", helpers: helpers })
+);
 app.set("view engine", "hbs");
 
 //set bodyparser
@@ -98,7 +103,8 @@ app.get("/records/:id/edit", (req, res) => {
     .lean()
     .then((record) => {
       record.date = record.date.toDateString();
-      res.render("edit", { record, category: categoryData });
+      console.log(categoryData);
+      res.render("edit", { record, category: categoryData.categorySeeds });
     })
     .catch((err) => {
       console.log(err);

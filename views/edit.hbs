@@ -34,15 +34,11 @@
                 Category*
               </label>
               <div class="col-md-8">
-                <input list="categories" class="form-control" name="category" id="category" required
-                  value='{{record.category}}' />
-                <datalist id="categories">
-                  <option>中東料理</option>
-                  <option>日本料理</option>
-                  <option>義式餐廳</option>
-                  <option>美式</option>
-                  <option>酒吧</option>
-                  <option>咖啡</option>
+                <select class='form-control' id="category">
+                  {{#each category}}
+                  <option value='{{this.name}}' {{#compare this.name '==' ../record.category}} selected {{/compare}}>{{this.name_cn}}</option>
+                  {{/each}}
+                </select>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
