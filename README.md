@@ -2,6 +2,9 @@
 
 Pocket Money is an app that helps you keep on track on your expense
 
+![](images/expense-tracker-1.png)
+![](images/expense-tracker-2.png)
+
 ## App URL
 
 https://intense-basin-35259.herokuapp.com/
