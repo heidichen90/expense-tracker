@@ -7,7 +7,7 @@ const methodOverride = require("method-override");
 const routes = require("./routes");
 require("./config/mongoose");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //set handlebars as a view engine
 app.engine(
