@@ -3,8 +3,12 @@ const Category = require("../category");
 const mockData = require("../../mock_data/category.json");
 
 db.once("open", () => {
-  mockData.categorySeeds.forEach((data) => {
-    Category.create({ ...data });
-  });
-  console.log("category seeder done!");
+  Category.create(mockData.categorySeeds)
+    .then(() => {
+      console.log("category seeder done!");
+      db.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });

@@ -3,8 +3,12 @@ const Record = require("../record");
 const mockData = require("../../mock_data/expense.json");
 
 db.once("open", () => {
-  mockData.expenseSeeds.forEach((data) => {
-    Record.create({ ...data });
-  });
-  console.log("record seeder done!");
+  Record.create(mockData.expenseSeeds)
+    .then(() => {
+      console.log("record seeder done!");
+      db.close();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
