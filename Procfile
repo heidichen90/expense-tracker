@@ -1,2 +1,2 @@
-release: node models/seeds/categorySeeder.js && node models/seeds/recordSeeder.js
+release: node run seed
 web: node app.js
