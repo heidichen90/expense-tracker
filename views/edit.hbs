@@ -36,7 +36,7 @@
               <div class="col-md-8">
                 <select class='form-control' id="category" name='category'>
                   {{#each category}}
-                  <option value='{{this.name}}' {{#compare this.name '==' ../record.category}} selected {{/compare}}>{{this.name_cn}}</option>
+                  <option value='{{this.name}}' {{#compare this.name '==' ../record.category}} selected {{/compare}}>{{this.name}}</option>
                   {{/each}}
                 </select>
                 <div class="invalid-feedback">
