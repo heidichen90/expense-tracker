@@ -1,14 +1,36 @@
 const db = require("../../config/mongoose");
 const Record = require("../record");
-const mockData = require("../../mock_data/expense.json");
+const Category = require("../category");
+const User = require("../user");
+const mockExpenseData = require("../../mock_data/expense.json");
+const mockCategoryData = require("../../mock_data/category.json");
 
 db.once("open", () => {
-  Record.create(mockData.expenseSeeds)
-    .then(() => {
-      console.log("record seeder done!");
-      db.close();
+  Promise.all(
+    mockExpenseData.expenseSeeds.map(async (expenseRecord, index) => {
+      //get the categoryId
+      const categoryObj = await Category.findOne({
+        name: expenseRecord.category,
+      });
+      let userObj = {};
+      if (index < 3) {
+        userObj = await User.findOne({ name: "User1" });
+      } else {
+        userObj = await User.findOne({ name: "User2" });
+      }
+
+      const record = new Record({
+        ...expenseRecord,
+        categoryId: categoryObj._id,
+        userId: userObj._id,
+      });
+
+      const newRecord = await Record.create(record);
+
+      return newRecord;
     })
-    .catch((error) => {
-      console.log(error);
-    });
+  ).then(() => {
+    console.log("record seeder done!");
+    db.close();
+  });
 });

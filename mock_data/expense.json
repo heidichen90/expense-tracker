@@ -1,40 +1,46 @@
 {
-  "expenseSeeds":[
+  "expenseSeeds": [
     {
-      "name":"expense-1",
+      "name": "expense-1",
       "category": "bill",
-      "date":"2021-06-19",
+      "date": "2021-06-19",
       "amount": 100
     },
     {
-      "name":"expense-2",
+      "name": "expense-2",
       "category": "transport",
-      "date":"2021-06-19",
+      "date": "2021-06-19",
       "amount": 20
     },
     {
-      "name":"expense-transport",
+      "name": "expense-transport",
       "category": "transport",
-      "date":"2021-06-19",
+      "date": "2021-06-19",
       "amount": 20
     },
     {
-      "name":"expense-3",
+      "name": "expense-3",
       "category": "entertainment",
-      "date":"2021-06-19",
+      "date": "2021-06-19",
       "amount": 200
     },
     {
-      "name":"expense-4",
+      "name": "expense-4",
       "category": "food",
-      "date":"2021-06-19",
+      "date": "2021-06-19",
       "amount": 230
     },
     {
-      "name":"expense-4",
+      "name": "expense-5",
       "category": "others",
-      "date":"2021-06-19",
+      "date": "2021-06-19",
       "amount": 10
+    },
+    {
+      "name": "expense-6",
+      "category": "entertainment",
+      "date": "2021-06-19",
+      "amount": 60
     }
   ]
 }
