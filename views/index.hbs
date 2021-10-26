@@ -1,9 +1,9 @@
 <div class="container d-flex flex-column align-items-center">
     <!-- Dropdown filter -->
     <div class="dropdown container-dropdown">
-      <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      <button class="btn dropdown-toggle {{#if selectedCategory}}btn-primary{{else}}btn-outline-primary{{/if}}" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false" style="width: 100%;">
-        Category
+        {{#if selectedCategory}}{{selectedCategory}}{{else}}Category{{/if}}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: 100%;">
         {{#each category}}

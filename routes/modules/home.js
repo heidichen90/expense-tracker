@@ -38,24 +38,31 @@ router.get("/", (req, res) => {
 
 //filter a category
 router.get("/filter/:category", async (req, res) => {
-  const categoryParam = req.params.category;
-  let records = await Record.find({ category: categoryParam })
-    .populate("categoryId")
-    .lean();
-  const categoryList = await Category.find().lean().sort({ _id: "asc" });
+  try {
+    const categoryParam = req.params.category;
+    let records = await Record.find({ category: categoryParam })
+      .populate("categoryId")
+      .lean();
+    const categoryList = await Category.find().lean().sort({ _id: "asc" });
 
-  records.forEach((e) => {
-    e.iconClass = e.categoryId.icon_class;
-  });
+    console.log(categoryList);
 
-  const totalAmount = getTotalAmount(records);
+    records.forEach((e) => {
+      e.iconClass = e.categoryId.icon_class;
+    });
 
-  res.render("index", { records, categoryList, totalAmount });
+    const totalAmount = getTotalAmount(records);
 
-  // .catch((error) => {
-  //   console.log(error);
-  //   res.render("error", { error });
-  // });
+    res.render("index", {
+      records,
+      category: categoryList,
+      totalAmount,
+      selectedCategory: categoryParam,
+    });
+  } catch {
+    console.log(error);
+    res.render("error", { error });
+  }
 });
 
 module.exports = router;
