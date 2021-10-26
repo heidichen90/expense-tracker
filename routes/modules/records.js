@@ -58,8 +58,8 @@ router.get("/new", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const restaurants = new Record({ ...req.body });
-  return restaurants
+  const expense = new Record({ ...req.body });
+  return expense
     .save()
     .then(() => {
       res.redirect("/");
