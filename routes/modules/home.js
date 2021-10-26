@@ -6,6 +6,7 @@ const {
   getCategoryClass,
   getTotalAmount,
 } = require("../../public/javascript/tools");
+const record = require("../../models/record");
 
 //home page
 router.get("/", (req, res) => {
@@ -36,32 +37,25 @@ router.get("/", (req, res) => {
 });
 
 //filter a category
-router.get("/filter/:category", (req, res) => {
+router.get("/filter/:category", async (req, res) => {
   const categoryParam = req.params.category;
-  const recordPromise = Record.find().lean().find({ category: categoryParam });
-  const categoryPromise = Category.find().lean().sort({ _id: "asc" });
-  return Promise.all([recordPromise, categoryPromise])
-    .then((value) => {
-      const records = value[0];
-      const category = value[1];
+  let records = await Record.find({ category: categoryParam })
+    .populate("categoryId")
+    .lean();
+  const categoryList = await Category.find().lean().sort({ _id: "asc" });
 
-      // format categories object for easy lookup
-      const categoryToClass = getCategoryClass(category);
+  records.forEach((e) => {
+    e.iconClass = e.categoryId.icon_class;
+  });
 
-      // format record object
-      records.forEach((e) => {
-        e.iconClass = categoryToClass[e.category];
-      });
+  const totalAmount = getTotalAmount(records);
 
-      //get totalAmount
-      const totalAmount = getTotalAmount(records);
+  res.render("index", { records, categoryList, totalAmount });
 
-      res.render("index", { records, category, totalAmount });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.render("error", { error });
-    });
+  // .catch((error) => {
+  //   console.log(error);
+  //   res.render("error", { error });
+  // });
 });
 
 module.exports = router;
