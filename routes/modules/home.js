@@ -45,8 +45,6 @@ router.get("/filter/:category", async (req, res) => {
       .lean();
     const categoryList = await Category.find().lean().sort({ _id: "asc" });
 
-    console.log(categoryList);
-
     records.forEach((e) => {
       e.iconClass = e.categoryId.icon_class;
     });
