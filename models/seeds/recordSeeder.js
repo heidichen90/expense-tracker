@@ -3,7 +3,6 @@ const Record = require('../record')
 const Category = require('../category')
 const User = require('../user')
 const mockExpenseData = require('../../mock_data/expense.json')
-const mockCategoryData = require('../../mock_data/category.json')
 
 db.once('open', () => {
   Promise.all(

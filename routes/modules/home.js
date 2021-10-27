@@ -6,7 +6,6 @@ const {
   getCategoryClass,
   getTotalAmount
 } = require('../../public/javascript/tools')
-const record = require('../../models/record')
 
 // home page
 router.get('/', (req, res) => {
@@ -57,8 +56,7 @@ router.get('/filter/:category', async (req, res) => {
       totalAmount,
       selectedCategory: categoryParam
     })
-  } catch {
-    console.log(error)
+  } catch (error) {
     res.render('error', { error })
   }
 })
