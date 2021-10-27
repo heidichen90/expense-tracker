@@ -7,7 +7,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "seed": "node models/seeds/categorySeeder.js && node models/seeds/userSeeder.js && node models/seeds/recordSeeder.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "style": "standard --fix "
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,14 @@
     "handlebars-helpers": "^0.10.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.12.14"
+  },
+  "standard": {
+    "ignore": [
+      "/node_modules",
+      "/public"
+    ]
+  },
+  "devDependencies": {
+    "standard": "^16.0.4"
   }
 }

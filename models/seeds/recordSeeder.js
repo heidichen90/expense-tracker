@@ -1,36 +1,36 @@
-const db = require("../../config/mongoose");
-const Record = require("../record");
-const Category = require("../category");
-const User = require("../user");
-const mockExpenseData = require("../../mock_data/expense.json");
-const mockCategoryData = require("../../mock_data/category.json");
+const db = require('../../config/mongoose')
+const Record = require('../record')
+const Category = require('../category')
+const User = require('../user')
+const mockExpenseData = require('../../mock_data/expense.json')
+const mockCategoryData = require('../../mock_data/category.json')
 
-db.once("open", () => {
+db.once('open', () => {
   Promise.all(
     mockExpenseData.expenseSeeds.map(async (expenseRecord, index) => {
-      //get the categoryId
+      // get the categoryId
       const categoryObj = await Category.findOne({
-        name: expenseRecord.category,
-      });
-      let userObj = {};
+        name: expenseRecord.category
+      })
+      let userObj = {}
       if (index < 3) {
-        userObj = await User.findOne({ name: "User1" });
+        userObj = await User.findOne({ name: 'User1' })
       } else {
-        userObj = await User.findOne({ name: "User2" });
+        userObj = await User.findOne({ name: 'User2' })
       }
 
       const record = new Record({
         ...expenseRecord,
         categoryId: categoryObj._id,
-        userId: userObj._id,
-      });
+        userId: userObj._id
+      })
 
-      const newRecord = await Record.create(record);
+      const newRecord = await Record.create(record)
 
-      return newRecord;
+      return newRecord
     })
   ).then(() => {
-    console.log("record seeder done!");
-    db.close();
-  });
-});
+    console.log('record seeder done!')
+    db.close()
+  })
+})

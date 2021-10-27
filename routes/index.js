@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const home = require("./modules/home");
-const records = require("./modules/records");
+const home = require('./modules/home')
+const records = require('./modules/records')
 
-router.use("/", home);
-router.use("/records", records);
+router.use('/', home)
+router.use('/records', records)
 
-//匯出總路由器
-module.exports = router;
+// 匯出總路由器
+module.exports = router

@@ -1,23 +1,23 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/expense";
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/expense'
 
-mongoose.set("useCreateIndex", true);
+mongoose.set('useCreateIndex', true)
 
-//set up mongoose and mongo db connection
+// set up mongoose and mongo db connection
 mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true,
-  useNewUrlParser: true,
-});
+  useNewUrlParser: true
+})
 
-const db = mongoose.connection;
+const db = mongoose.connection
 
-db.on("error", () => {
-  console.log("mongodb error!");
-});
+db.on('error', () => {
+  console.log('mongodb error!')
+})
 
-db.once("open", () => {
-  console.log("mongodb connected!");
-});
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
 
-module.exports = db;
+module.exports = db
