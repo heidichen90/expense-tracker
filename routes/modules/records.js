@@ -47,7 +47,6 @@ router.put("/:id", (req, res) => {
       res.redirect("/");
     })
     .catch((error) => {
-      console.log(error);
       res.render("error", { error });
     });
 });
@@ -69,8 +68,7 @@ router.post("/", async (req, res) => {
     if (saveNewRecord) {
       res.redirect("/");
     }
-  } catch (err) {
-    console.log(error);
+  } catch (error) {
     res.render("error", { error });
   }
 });
