@@ -1,76 +1,82 @@
-const express = require('express')
-const router = express.Router()
-const User = require('../../models/user')
-const passport = require('passport')
-const bcrypt = require('bcryptjs')
+const express = require("express");
+const router = express.Router();
+const User = require("../../models/user");
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
-router.get('/login', (req, res) => {
-  res.render('login')
-})
+router.get("/login", (req, res) => {
+  res.render("login");
+});
 
 router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/users/login',
-    failureFlash: true
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/users/login",
+    failureFlash: true,
   })
-)
+);
 
-router.get('/register', (req, res) => {
-  res.render('register')
-})
+router.get("/register", (req, res) => {
+  res.render("register");
+});
 
-router.post('/register', (req, res) => {
-  const { name, email, password, confirmPassword } = req.body
+router.post("/register", (req, res) => {
+  const { name, email, password, confirmPassword } = req.body;
 
-  const errors = []
+  const errors = [];
 
   // check register form field
   if (!email || !password || !confirmPassword) {
-    errors.push({ message: 'Missing required field.' })
+    errors.push({ message: "Missing required field." });
   }
 
   if (password !== confirmPassword) {
-    errors.push({ message: "Password didn't match Confirm Password." })
+    errors.push({ message: "Password didn't match Confirm Password." });
   }
 
   if (errors.length) {
-    return res.render('register', {
+    return res.render("register", {
       errors,
       name,
       email,
       password,
-      confirmPassword
-    })
+      confirmPassword,
+    });
   }
 
   User.findOne({ email })
     .then((user) => {
-      console.log('user', user)
+      console.log("user", user);
       if (user) {
-        errors.push({ message: 'This email is registered' })
-        res.render('register', {
+        errors.push({ message: "This email is registered" });
+        res.render("register", {
           errors,
           name,
           email,
           password,
-          confirmPassword
-        })
+          confirmPassword,
+        });
       } else {
         return bcrypt
           .genSalt(10)
           .then((salt) => bcrypt.hash(password, salt))
           .then((hash) => User.create({ name, email, password: hash }))
           .then(() => {
-            res.redirect('/')
+            res.redirect("/");
           })
           .catch((err) => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     })
-    .catch((err) => console.log(err))
-})
+    .catch((err) => console.log(err));
+});
 
-module.exports = router
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success_msg", "You have successfully logged out");
+  res.redirect("/users/login");
+});
+
+module.exports = router;
