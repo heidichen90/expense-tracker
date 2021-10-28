@@ -7,33 +7,36 @@ const {
   getTotalAmount,
 } = require("../../public/javascript/tools");
 
-// home page
-router.get("/", (req, res) => {
-  const userId = req.user._id;
-  const recordPromise = Record.find({ userId }).lean().sort({ _id: "asc" });
-  const categoryPromise = Category.find().lean().sort({ _id: "asc" });
-  return Promise.all([recordPromise, categoryPromise])
-    .then((value) => {
-      const records = value[0];
-      const category = value[1];
+router.get("/", async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const records = await Record.find({ userId })
+      .populate("categoryId")
+      .lean()
+      .sort({ _id: "asc" });
+    const categoryList = await Category.find().lean().sort({ _id: "asc" });
 
-      // format categories object for easy lookup
-      const categoryToClass = getCategoryClass(category);
+    categoryList.forEach(
+      (category) =>
+        (category.name =
+          category.name[0].toUpperCase() + category.name.slice(1))
+    );
 
-      // format record object
-      records.forEach((e) => {
-        e.iconClass = categoryToClass[e.category];
-      });
-
-      // get totalAmount
-      const totalAmount = getTotalAmount(records);
-
-      res.render("index", { records, category, totalAmount });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.render("error", { error });
+    records.forEach((e) => {
+      e.iconClass = e.categoryId.icon_class;
     });
+
+    const totalAmount = getTotalAmount(records);
+
+    res.render("index", {
+      records,
+      category: categoryList,
+      totalAmount,
+    });
+  } catch (error) {
+    console.log(error);
+    res.render("error", { error });
+  }
 });
 
 // filter a category
@@ -59,6 +62,7 @@ router.get("/filter/:category", async (req, res) => {
       selectedCategory: categoryParam,
     });
   } catch (error) {
+    console.log(error);
     res.render("error", { error });
   }
 });

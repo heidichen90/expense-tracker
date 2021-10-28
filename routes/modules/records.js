@@ -64,11 +64,7 @@ router.post("/", async (req, res) => {
     const categoryId = await Category.findOne({ name: req.body.category });
     const expense = new Record({ ...req.body, userId, categoryId });
 
-    console.log(expense);
-
     const saveNewRecord = await expense.save();
-
-    console.log(saveNewRecord);
 
     if (saveNewRecord) {
       res.redirect("/");
