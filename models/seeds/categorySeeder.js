@@ -6,7 +6,7 @@ db.once('open', () => {
   Category.create(mockData.categorySeeds)
     .then(() => {
       console.log('category seeder done!')
-      db.close()
+      process.exit()
     })
     .catch((error) => {
       console.log(error)

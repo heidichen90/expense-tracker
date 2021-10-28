@@ -30,6 +30,6 @@ db.once('open', () => {
     })
   ).then(() => {
     console.log('record seeder done!')
-    db.close()
+    process.exit()
   })
 })
