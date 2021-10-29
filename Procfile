@@ -1,2 +1,2 @@
-release: node run seed
+release: npm run seed
 web: node app.js
