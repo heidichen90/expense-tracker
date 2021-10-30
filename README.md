@@ -8,7 +8,7 @@ Pocket Money is an app that helps you keep on track on your expense
 
 ## URL
 
-https://intense-basin-35259.herokuapp.com/
+https://toddypet-expense-tracker.herokuapp.com/
 
 ## Feature
 
