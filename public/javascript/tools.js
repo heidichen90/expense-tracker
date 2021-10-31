@@ -1,3 +1,5 @@
+const category = require("../../models/category");
+
 function getTotalAmount(records) {
   let totalAmount = 0;
   records.forEach((e) => {
@@ -6,4 +8,12 @@ function getTotalAmount(records) {
   return totalAmount;
 }
 
-module.exports = { getTotalAmount };
+function capitalizeFirstLetter(categories) {
+  categories.forEach(
+    (category) =>
+      (category.name = category.name[0].toUpperCase() + category.name.slice(1))
+  );
+  return categories;
+}
+
+module.exports = { getTotalAmount, capitalizeFirstLetter };
