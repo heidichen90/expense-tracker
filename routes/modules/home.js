@@ -16,12 +16,6 @@ router.get('/', async (req, res) => {
       .sort({ _id: 'asc' })
     const categoryList = await Category.find().lean().sort({ _id: 'asc' })
 
-    // categoryList.forEach(
-    //   (category) =>
-    //     (category.name =
-    //       category.name[0].toUpperCase() + category.name.slice(1))
-    // );
-    console.log(capitalizeFirstLetter(categoryList))
     records.forEach((e) => {
       e.iconClass = e.categoryId.icon_class
     })
@@ -41,7 +35,6 @@ router.get('/', async (req, res) => {
 
 // filter a category
 router.get('/filter/:category', async (req, res) => {
-  console.log(req.params.category)
   const userId = req.user._id
   try {
     const categoryParam = req.params.category.toLowerCase()
@@ -53,8 +46,6 @@ router.get('/filter/:category', async (req, res) => {
     records.forEach((e) => {
       e.iconClass = e.categoryId.icon_class
     })
-
-    console.log(records)
 
     const totalAmount = getTotalAmount(records)
 
