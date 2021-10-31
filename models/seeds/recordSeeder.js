@@ -24,8 +24,6 @@ db.once('open', () => {
         userId: userObj._id
       })
 
-      console.log(record)
-
       const newRecord = await Record.create(record)
 
       return newRecord

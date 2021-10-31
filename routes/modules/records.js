@@ -59,9 +59,14 @@ router.get('/new', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    console.log(req.body.category)
     const userId = req.user._id
     const categoryId = await Category.findOne({ name: req.body.category })
-    const expense = new Record({ ...req.body, userId, categoryId })
+    const expense = new Record({
+      ...req.body,
+      userId,
+      categoryId
+    })
 
     const saveNewRecord = await expense.save()
 
@@ -69,6 +74,7 @@ router.post('/', async (req, res) => {
       res.redirect('/')
     }
   } catch (error) {
+    console.log(error)
     res.render('error', { error })
   }
 })
